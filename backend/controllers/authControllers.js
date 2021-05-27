@@ -110,7 +110,7 @@ module.exports = {
                 })
             );
 
-            res.header('authorization', token)
+            res.header('Authorization', token)
                 .status(200)
                 .json({
                     success: true,
@@ -143,7 +143,7 @@ module.exports = {
                 })
             );
 
-            res.header('authorization', token)
+            res.header('Authorization', token)
                 .status(200)
                 .json({
                     success: true,
