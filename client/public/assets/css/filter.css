@@ -1,0 +1,7 @@
+.activeFilter {
+	transform: translateX(0) !important;
+	transition: all 0.5s;
+}
+.hideFilterIcons {
+	visibility: hidden !important;
+}

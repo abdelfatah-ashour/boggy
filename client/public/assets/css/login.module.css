@@ -1,0 +1,8 @@
+.login {
+  min-height: 600px;
+  width: 100%;
+  overflow: hidden;
+}
+.login .form {
+  flex-wrap: wrap;
+}

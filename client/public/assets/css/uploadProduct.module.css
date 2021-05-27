@@ -1,0 +1,83 @@
+.formUploadProduct {
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 600px;
+  margin: 2rem auto;
+}
+
+.checkedInputs {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.listOfChecked {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.form-label {
+  text-transform: capitalize;
+  margin-bottom: 0.5rem;
+}
+.itemChecked {
+  width: 50%;
+  list-style: none;
+}
+.GroupChecked .form-label {
+  padding: 5px;
+  text-transform: uppercase;
+  -webkit-transform: translateX(50%);
+  -moz-transform: translateX(50%);
+  transform: translateX(50%);
+  margin-top: 5px;
+  margin-bottom: 20px;
+  margin-right: auto;
+  border-bottom: 2px solid #fff;
+}
+.checkedInputs:hover .form-label {
+  border-bottom-color: var(--third-color);
+  transition: all 0.25s;
+}
+.checkedInputs:hover .form-check-label,
+.checkedInputs:hover .form-check-input {
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.btnUpload {
+  width: auto;
+  margin: 0.5rem auto;
+  text-align: center;
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.btnUpload:hover {
+  background-color: var(--third-color);
+}
+
+.uploadBtn {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/* media query for specific styles */
+@media (max-width: 576px) {
+  .GroupChecked {
+    width: 100%;
+  }
+}
+
+@media (min-width: 576px) {
+  .GroupChecked {
+    width: 50%;
+  }
+}
+@media (min-width: 768px) {
+  .GroupChecked {
+    width: 30%;
+  }
+}

@@ -1,0 +1,21 @@
+.cart {
+  min-height: 100vh;
+}
+
+.tabDelete {
+  font-weight: bold;
+  margin: 0.5rem;
+  font-size: 1.3rem;
+}
+.tabDelete:hover {
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.checkoutBtn {
+  background-color: var(--main-color);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--sec-color);
+  text-transform: capitalize;
+}

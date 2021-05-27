@@ -1,0 +1,109 @@
+.oneCard {
+  min-height: 25rem;
+  color: var(--five-color);
+  background-color: var(--sec-color);
+  position: relative;
+  margin: 2.5rem auto;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.contentInfo {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 70%;
+  background-color: var(--third-color);
+  padding: 1rem;
+  z-index: 10;
+  border-radius: 10px;
+}
+.oneCard:hover .overlay {
+  top: 0;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+.oneCard:hover .viewDetails {
+  visibility: visible;
+}
+.oneCard:hover .contentInfo {
+  transform: rotate(-360deg) translateX(100%);
+  transition: all 0.25s;
+}
+.oneCard .contentInfo h6 {
+  font-size: 1rem;
+}
+
+.oneCard .contentImage {
+  width: auto;
+  height: auto;
+}
+.oneCard .contentImage img {
+  width: 100%;
+  height: 100%;
+}
+
+.viewDetails {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 0.5rem;
+  z-index: 10;
+  visibility: hidden;
+  position: absolute;
+  top: auto;
+  left: auto;
+}
+.viewDetails a {
+  font-size: 1.2rem;
+}
+.viewDetails:hover {
+  cursor: pointer;
+  transition: all 0.25s;
+}
+.addCart {
+  background-color: #fff;
+  color: var(--third-color);
+  position: absolute;
+  top: 2rem;
+  right: -3rem;
+  padding: 0.5rem;
+  z-index: 10;
+  border-radius: 4px;
+  font-size: 1.5rem;
+}
+.addCart:hover {
+  cursor: pointer;
+  transition: all 0.5s;
+}
+.oneCard:hover .addCart {
+  right: 0;
+  transition: all 0.25s;
+}
+
+/* media query for specific styles */
+@media (max-width: 576px) {
+  .oneCard {
+    width: 30%;
+  }
+}
+
+@media (min-width: 576px) {
+  .oneCard {
+    width: 30%;
+  }
+}
+@media (min-width: 768px) {
+  .oneCard {
+    width: 24%;
+  }
+}
+@media (min-width: 992px) {
+  .oneCard {
+    width: 24%;
+  }
+}

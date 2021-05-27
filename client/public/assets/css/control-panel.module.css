@@ -1,0 +1,84 @@
+.containerPanel {
+  min-height: 600px;
+  width: 95%;
+  margin: 0 auto;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.contentProfile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 300px;
+  width: 100%;
+  overflow: hidden;
+  padding: 1rem;
+}
+
+.contentProfile div {
+  height: 12rem;
+  width: 8rem;
+  border-radius: 50%;
+}
+.contentProfile div img {
+  height: 100%;
+  width: 100%;
+}
+.contentProfile ul {
+  list-style: none;
+  /* padding: 0.5rem; */
+}
+.contentProfile ul li {
+  line-height: 2rem;
+}
+
+.contentProducts {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 0.5rem;
+}
+
+.contentProducts ul {
+  list-style: none;
+}
+
+.contentProducts ul li {
+  border-left: 2px solid transparent;
+  margin-bottom: 0.5rem;
+  padding-left: 0.2rem;
+}
+.contentProducts ul li:hover {
+  border-left-color: #000;
+  cursor: pointer;
+  padding-left: 0.7rem;
+  transition: all 0.5s;
+}
+
+.Table {
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  line-height: 1.7rem;
+}
+
+.Table thead,
+.Table tbody,
+.Table thead tr,
+.Table thead tr {
+  padding: 0.5rem;
+}
+
+.btnState {
+  font-size: 1.25rem;
+  color: green;
+  padding: 0 0.5rem;
+}
+.selectState {
+  display: flex;
+}
+
+.selectState option {
+  text-transform: capitalize;
+}
