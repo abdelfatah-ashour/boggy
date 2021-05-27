@@ -19,9 +19,7 @@ connectDB(process.env.DB_URL)
         console.log('connected to database');
     })
     .catch(error => {
-        if (error) {
-            throw new Error(`can't connect database because ${error.message}`);
-        }
+        console.log(`can't connect database because ${error.message}`);
     });
 
 app.use(
@@ -30,6 +28,7 @@ app.use(
         origin: process.env.CLIENT_URL,
         path: '/',
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        exposedHeaders: ['authorization', 'Set-Cookie'],
     })
 );
 

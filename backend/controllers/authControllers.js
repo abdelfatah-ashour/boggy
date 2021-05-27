@@ -110,15 +110,17 @@ module.exports = {
                 })
             );
 
-            res.status(200).json({
-                success: true,
-                message: {
-                    role: user.role,
-                    userId: user._id,
-                    email: user.email,
-                    displayName: user.firstName + ' ' + user.lastName,
-                },
-            });
+            res.header('authorization', token)
+                .status(200)
+                .json({
+                    success: true,
+                    message: {
+                        role: user.role,
+                        userId: user._id,
+                        email: user.email,
+                        displayName: user.firstName + ' ' + user.lastName,
+                    },
+                });
         }
         // generate response if logger is Admin
         if (user.role === 1) {

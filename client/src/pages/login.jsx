@@ -34,12 +34,30 @@ export default function login() {
                 });
 
                 // set cookie if admin
-                if (data.payload.role > 0) {
-                    Cookie.set('adminInfo', data.payload);
+                if (data.message.role > 0) {
+                    Cookie.set('c_admin', data.headers.authorization, {
+                        secure: true,
+                        sameSite: 'strict',
+                        expires: 1 / 48, //  30 min ,
+                    });
+                    Cookie.set('adminInfo', data.message, {
+                        secure: true,
+                        sameSite: 'strict',
+                        expires: 1 / 48, //  30 min ,
+                    });
                 }
                 // set cookie if user
-                if (data.payload.role === 0) {
-                    Cookie.set('userInfo', data.payload);
+                if (data.message.role === 0) {
+                    Cookie.set('c_user', data.headers.authorization, {
+                        secure: true,
+                        sameSite: 'strict',
+                        expires: 1, // 1 day
+                    });
+                    Cookie.set('userInfo', data.message, {
+                        secure: true,
+                        sameSite: 'strict',
+                        expires: 1, // 1 day
+                    });
                 }
 
                 setLogged(true);
@@ -48,14 +66,21 @@ export default function login() {
                     Router.back();
                 }, 3000);
             })
-            .catch(({ response }) => {
-                if (response) {
+            .catch(error => {
+                if (!error.response) {
                     // catch any error
                     setUserData({
                         ...UserData,
                     });
                     setLogged(false);
-                    toast.warn(response.data.payload);
+                    toast.warn(error.message);
+                } else {
+                    // catch any error
+                    setUserData({
+                        ...UserData,
+                    });
+                    setLogged(false);
+                    toast.error(error.response.data.message);
                 }
             });
     };
