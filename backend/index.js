@@ -43,6 +43,10 @@ if (process.env.NODE_ENV === 'development') {
 app.use(helmet());
 
 // api routes
+app.get('/', (req, res) => {
+    res.send('BOGGY E-COMMERCE API');
+});
+
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/products', require('./routes/productRoutes'));
 app.use('/api/cart', require('./routes/cartRoutes'));

@@ -1,6 +1,6 @@
-import Axios from "axios";
-
+import Axios from 'axios';
+import { API } from './KEYS.json';
 export default Axios.create({
-	baseURL: "https://boggy-backend.herokuapp.com/api",
-	withCredentials: true,
+    baseURL: API + '/api',
+    withCredentials: true,
 });
