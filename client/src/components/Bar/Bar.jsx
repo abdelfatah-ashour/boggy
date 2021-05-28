@@ -28,10 +28,11 @@ export function Bar() {
     const handleLogout = async () => {
         await API.get(`/auth/logout`)
             .then(() => {
-                Cookie.remove('at');
+                Cookie.remove('c_user');
                 Cookie.remove('userInfo');
-                Cookie.remove('admin');
+                Cookie.remove('c_admin');
                 Cookie.remove('adminInfo');
+
                 setAuthUser({
                     isLogin: null,
                     role: null,
@@ -41,7 +42,9 @@ export function Bar() {
                     email: null,
                     displayName: null,
                 });
-                toast.success('See You Later 😊 ');
+
+                toast.success('See You Later 😊');
+
                 setTimeout(() => {
                     Router.push('/');
                 }, 1500);

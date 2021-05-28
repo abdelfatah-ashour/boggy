@@ -8,6 +8,7 @@ import Style from '../../public/assets/css/login.module.css';
 import Cookie from 'js-cookie';
 import API from '../utils/API';
 import { useRouter } from 'next/router';
+
 export default function login() {
     const Router = useRouter();
     const [UserData, setUserData] = useState({
@@ -48,7 +49,6 @@ export default function login() {
                 }
                 // set cookie if user
                 if (resp.data.message.role === 0) {
-                    console.log(resp);
                     Cookie.set('c_user', resp.headers.authorization, {
                         secure: true,
                         sameSite: 'strict',
@@ -62,7 +62,7 @@ export default function login() {
                 }
 
                 setLogged(true);
-                toast.success(`login success 💝 ... redirect automatically`);
+                toast.success(`login success 💝`);
                 setTimeout(() => {
                     Router.back();
                 }, 3000);
