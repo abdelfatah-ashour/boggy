@@ -35,7 +35,7 @@ export default function login() {
 
                 // set cookie if admin
                 if (data.message.role > 0) {
-                    Cookie.set('c_admin', data.headers.authorization, {
+                    Cookie.set('c_admin', data.headers.Authorization, {
                         secure: true,
                         sameSite: 'strict',
                         expires: 1 / 48, //  30 min ,
@@ -48,7 +48,7 @@ export default function login() {
                 }
                 // set cookie if user
                 if (data.message.role === 0) {
-                    Cookie.set('c_user', data.headers.authorization, {
+                    Cookie.set('c_user', data.headers.Authorization, {
                         secure: true,
                         sameSite: 'strict',
                         expires: 1, // 1 day
