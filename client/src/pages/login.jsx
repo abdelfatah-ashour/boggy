@@ -26,7 +26,7 @@ export default function login() {
         e.preventDefault();
         const { email, password } = UserData;
         await API.post(`/auth/login`, { email, password })
-            .then(({ data }) => {
+            .then(resp => {
                 // response is success
                 setUserData({
                     email: null,
@@ -34,26 +34,26 @@ export default function login() {
                 });
 
                 // set cookie if admin
-                if (data.message.role > 0) {
-                    Cookie.set('c_admin', data.headers.Authorization, {
+                if (resp.data.message.role > 0) {
+                    Cookie.set('c_admin', resp.headers.Authorization, {
                         secure: true,
                         sameSite: 'strict',
                         expires: 1 / 48, //  30 min ,
                     });
-                    Cookie.set('adminInfo', data.message, {
+                    Cookie.set('adminInfo', resp.data.message, {
                         secure: true,
                         sameSite: 'strict',
                         expires: 1 / 48, //  30 min ,
                     });
                 }
                 // set cookie if user
-                if (data.message.role === 0) {
-                    Cookie.set('c_user', data.headers.Authorization, {
+                if (resp.data.message.role === 0) {
+                    Cookie.set('c_user', resp.data.headers.Authorization, {
                         secure: true,
                         sameSite: 'strict',
                         expires: 1, // 1 day
                     });
-                    Cookie.set('userInfo', data.message, {
+                    Cookie.set('userInfo', resp.data.message, {
                         secure: true,
                         sameSite: 'strict',
                         expires: 1, // 1 day
