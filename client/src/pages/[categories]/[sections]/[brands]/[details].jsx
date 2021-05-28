@@ -1,10 +1,11 @@
 import React, { useContext, useState } from 'react';
 import Head from 'next/head';
 import { PaypalBtn } from '../../../../utils/paymentGetaway';
-import API from '../../../../utils/API';
+import AXIOS from '../../../../utils/API';
 import Style from '../../../../../public/assets/css/productDetails.module.css';
 import { AuthContext } from '../../../../Context_API/AuthUser';
 import { toast } from 'react-toastify';
+import { API } from '../../../../utils/KEYS.json';
 export default function details({ products }) {
     const [checkout, setCheckout] = useState(null);
     const { AuthUser } = useContext(AuthContext);
@@ -46,14 +47,14 @@ export default function details({ products }) {
 
     // TODO: handleCheckout
     const checkedOut = async () => {
-        await API.post(`/order/checkout`, {
+        await AXIOS.post(`/order/checkout`, {
             items: handleOrder(products),
         });
     };
 
     //  TODO: handleDeleteAll
     const handleDeleteAll = async () => {
-        const { data, response } = await API.delete(`/cart/deleteCart`);
+        const { data, response } = await AXIOS.delete(`/cart/deleteCart`);
         if (data) {
             toast.success(data.message);
             setTimeout(() => {
@@ -78,7 +79,7 @@ export default function details({ products }) {
                             <div className="d-flex justify-content-center align-items-center">
                                 <div className={Style.contentImage}>
                                     <img
-                                        src={`https://boggy-backend.herokuapp.com/${ImageProduct}`}
+                                        src={`${API}/${ImageProduct}`}
                                         alt={Name}
                                     />
                                 </div>
@@ -237,7 +238,7 @@ export default function details({ products }) {
 export async function getServerSideProps({ params }) {
     const { categories, sections, brands, details } = params;
 
-    return await API.get(
+    return await AXIOS.get(
         `/products/get/${categories}/${sections}/${brands}/${details}`
     )
         .then(({ data }) => {

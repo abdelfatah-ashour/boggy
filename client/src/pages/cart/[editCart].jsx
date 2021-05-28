@@ -3,8 +3,9 @@ import Head from 'next/head';
 import Style from '../../../public/assets/css/editCart.module.css';
 import { toast, ToastContainer } from 'react-toastify';
 import { getTokenUser } from '../../utils/getToken';
-import API from '../../utils/API';
+import AXIOS from '../../utils/API';
 import { useRouter } from 'next/router';
+import { API } from '../../utils/KEYS.json';
 
 function EditOrder() {
     const [item, setItem] = useState(null);
@@ -26,7 +27,7 @@ function EditOrder() {
     });
     // qty, userId
     const handleConfirmQty = async id => {
-        await API.put(`/cart/getOneItemAndUpdate`, {
+        await AXIOS.put(`/cart/getOneItemAndUpdate`, {
             qty: state.qty,
             objId: id._id,
         })
@@ -47,7 +48,7 @@ function EditOrder() {
 
     useEffect(() => {
         const fetchOneItemInCart = async () => {
-            await API(`/cart/getAllInCart`)
+            await AXIOS.get(`/cart/getAllInCart`)
                 .then(({ data }) => {
                     const item = data.message[0].itemsId.filter(item => {
                         return item.item._id == query.editCart;
@@ -85,7 +86,8 @@ function EditOrder() {
                                                 }>
                                                 <img
                                                     src={
-                                                        'https://boggy-backend.herokuapp.com/' +
+                                                        API +
+                                                        '/' +
                                                         item.item.ImageProduct
                                                     }
                                                     alt=""
