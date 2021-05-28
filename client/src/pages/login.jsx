@@ -48,7 +48,8 @@ export default function login() {
                 }
                 // set cookie if user
                 if (resp.data.message.role === 0) {
-                    Cookie.set('c_user', resp.data.headers.Authorization, {
+                    console.log(resp);
+                    Cookie.set('c_user', resp.headers.Authorization, {
                         secure: true,
                         sameSite: 'strict',
                         expires: 1, // 1 day
