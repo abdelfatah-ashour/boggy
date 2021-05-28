@@ -35,7 +35,7 @@ export default function login() {
 
                 // set cookie if admin
                 if (resp.data.message.role > 0) {
-                    Cookie.set('c_admin', resp.headers.Authorization, {
+                    Cookie.set('c_admin', resp.headers.authorization, {
                         secure: true,
                         sameSite: 'strict',
                         expires: 1 / 48, //  30 min ,
@@ -49,7 +49,7 @@ export default function login() {
                 // set cookie if user
                 if (resp.data.message.role === 0) {
                     console.log(resp);
-                    Cookie.set('c_user', resp.headers.Authorization, {
+                    Cookie.set('c_user', resp.headers.authorization, {
                         secure: true,
                         sameSite: 'strict',
                         expires: 1, // 1 day
@@ -119,6 +119,7 @@ export default function login() {
                                 Login
                             </button>
                             <span>
+                                {'    '}
                                 don&apos;t have Account ?{' '}
                                 <Link href="/register">Register</Link>
                             </span>

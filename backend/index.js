@@ -27,8 +27,8 @@ app.use(
         credentials: true,
         origin: process.env.CLIENT_URL,
         path: '/',
-        methods: ['GET', 'POST', 'PUT', 'DELETE'],
-        exposedHeaders: ['Authorization', 'Set-Cookie'],
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTION'],
+        exposedHeaders: ['authorization', 'Set-Cookie', 'cookie', 'cookies'],
     })
 );
 
