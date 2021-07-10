@@ -67,6 +67,7 @@ export async function getServerSideProps({ params, query }) {
             products: data.message.products,
             total: data.message.total,
             title: String(categories).toUpperCase(),
+            error: null,
           },
         };
       })
@@ -74,9 +75,10 @@ export async function getServerSideProps({ params, query }) {
         return {
           props: {
             success: false,
-            products: [],
-            total: 0,
+            products: null,
+            total: null,
             title: String(categories).toUpperCase(),
+            error: true,
           },
         };
       });
