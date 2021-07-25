@@ -5,7 +5,7 @@ import { InputFormRegister } from "../utilities/InputRegisterCTRL";
 import { useRouter } from "next/router";
 import Style from "../../public/assets/css/register.module.css";
 import { getTokenUser, getTokenAdmin } from "../utilities/getToken";
-import API from "../utilities/API";
+import Axios from "../utilities/Axios";
 
 function index() {
   const Router = useRouter();
@@ -43,7 +43,7 @@ function index() {
     Data.append("password", password);
     Data.append("confirmPassword", confirmPassword);
     Data.append("imageProfile", file);
-    await API.post(`/auth/register`, Data)
+    await Axios.post(`/auth/register`, Data)
       .then(({ data }) => {
         if (data) {
           setUSerInfo({

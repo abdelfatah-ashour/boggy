@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
-import API from "../utilities/API";
+import Axios from "../utilities/Axios";
 
 import {
   GroupChecked,
@@ -170,7 +170,7 @@ export default function index() {
 
     data.append("ImageProduct", file);
     // endpoint of upload product
-    await API.post(`/products/create`, data)
+    await Axios.post(`/products/create`, data)
       .then(() => {
         alert("🚀 uploaded product");
       })
