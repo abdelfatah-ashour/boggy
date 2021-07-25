@@ -2,15 +2,13 @@ import React, { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
-import API from "../utils/API";
+import API from "../utilities/API";
 
 import {
   GroupChecked,
   InputSelect,
   InputUploadProduct,
-} from "../utils/InputUploadCTRL";
-
-import Style from "../../public/assets/css/uploadProduct.module.css";
+} from "../utilities/InputUploadCTRL";
 
 import {
   BRAND_OF_CLOTHES,
@@ -25,10 +23,11 @@ import {
   CHECK_SIZE_OF_CLOTHES,
   CLOTHES_SECTION_SELECTION,
   LAPTOPS_AND_MOBILES_SECTION_SELECTION,
-} from "../utils/globalStatement";
+} from "../utilities/globalStatement";
 
-import { getTokenUser } from "../utils/getToken";
+import { getTokenUser } from "../utilities/getToken";
 import { toast } from "react-toastify";
+import Style from "../../public/assets/css/uploadProduct.module.css";
 
 export default function index() {
   // initial state of upload product form

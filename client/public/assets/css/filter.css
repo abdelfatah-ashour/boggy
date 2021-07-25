@@ -1,7 +1,22 @@
 .activeFilter {
-	transform: translateX(0) !important;
-	transition: all 0.5s;
+  transform: translateX(0) !important;
 }
+
 .hideFilterIcons {
-	visibility: hidden !important;
+  visibility: hidden !important;
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+::-webkit-slider-thumb {
+  -webkit-appearance: none !important; /* Override default look */
+  appearance: none !important;
+  background: var(--five-color) !important; /* Green background */
+  cursor: pointer !important; /* Cursor on hover */
+}
+
+::-moz-range-thumb {
+  width: 25px !important; /* Set a specific slider handle width */
+  height: 25px !important; /* Slider handle height */
+  background: var(--five-color) !important; /* Green background */
+  cursor: pointer !important; /* Cursor on hover */
 }

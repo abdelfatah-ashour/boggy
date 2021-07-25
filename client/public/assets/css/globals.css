@@ -16,11 +16,11 @@
 }
 
 :root {
-  --main-color: #14213d;
-  --sec-color: #ffffff;
-  --third-color: #fed501;
-  --four-color: #e5e5e5;
-  --five-color: #000000;
+  --first-color: #1d3557;
+  --second-color: #457b9d;
+  --third-color: #a8dadc;
+  --four-color: #f1faee;
+  --five-color: #e63946;
 }
 .btn {
   background-color: var(--four-color);
@@ -31,6 +31,7 @@
   color: var(--five-color);
   transition: all 0.25s;
 }
+
 html,
 body {
   background-color: var(--sec-color);
@@ -54,6 +55,7 @@ h6 {
   font-size: 2rem;
   margin-bottom: 5rem;
 }
+
 .arrowBack a {
   color: var(--main-color);
 }

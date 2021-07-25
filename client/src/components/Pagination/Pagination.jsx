@@ -10,7 +10,7 @@ export function PaginationComponent({ total, path }) {
   let PaginationList = [];
 
   // looping to create list of pagination btn
-  for (var i = 1; i <= TotalOfPages; i++) {
+  for (let i = 1; i <= TotalOfPages; i++) {
     PaginationList.push(i);
   }
 

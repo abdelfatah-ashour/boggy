@@ -1,9 +1,8 @@
 .containerLayout {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   flex-wrap: wrap;
   padding: 1.5rem 0;
   min-height: 500px;
-  z-index: 1;
 }

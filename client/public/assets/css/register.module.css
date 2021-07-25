@@ -1,4 +1,8 @@
 .register {
-  position: relative;
-  margin: 3rem auto;
+  width: 100%;
+  overflow: hidden;
+}
+
+.form {
+  box-shadow: 0 0 8px 8px var(--four-color);
 }

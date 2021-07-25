@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { AiFillDelete } from "react-icons/ai";
+import { PaypalBtn } from "../../utilities/paymentGetaway";
+import { toast, ToastContainer } from "react-toastify";
+import { useRouter } from "next/router";
+import { getTokenUser } from "../../utilities/getToken";
 import Head from "next/head";
 import Link from "next/link";
 import Style from "../../../public/assets/css/cart.module.css";
-import { AiFillDelete } from "react-icons/ai";
-import { toast, ToastContainer } from "react-toastify";
-import { PaypalBtn } from "../../utils/paymentGetaway";
-import { getTokenUser } from "../../utils/getToken";
-import API from "../../utils/API";
-import { useRouter } from "next/router";
+import Axios from "../../utilities/Axios";
+import { useDispatch } from "react-redux";
+import { allInCart } from "../../redux/slices/Cart";
 
 export default function cart() {
+  const dispatch = useDispatch();
   const [cart, setCart] = useState([]);
   const [checked, setChecked] = useState(false);
   const Router = useRouter();
@@ -28,7 +31,7 @@ export default function cart() {
     });
   }
 
-  //  TODO: handle Order if success payment getaway
+  // TODO: handle Order if success payment getaway
   const handleOrder = (items) => {
     const itemsData = items.map((item) => {
       return {
@@ -42,7 +45,7 @@ export default function cart() {
 
   // TODO: handleCheckout
   const checkout = async () => {
-    await API.post(`/order/checkout`, {
+    await Axios.post(`/order/checkout`, {
       items: handleOrder(cart),
     })
       .then((resp) => {
@@ -61,7 +64,7 @@ export default function cart() {
 
   //  TODO: handle delete one item
   const handleDeleteOneItem = async (id) => {
-    await API.get(`/cart/getOneItemAndDelete`, {
+    await Axios.get(`/cart/getOneItemAndDelete`, {
       params: {
         id,
       },
@@ -85,12 +88,13 @@ export default function cart() {
 
   //  TODO: handleDeleteAll
   const handleDeleteAll = async () => {
-    await API.delete(`/cart/deleteCart`)
+    await Axios.delete(`/cart/deleteCart`)
       .then(({ data }) => {
-        toast.success(data.message);
+        dispatch(allInCart([]));
         setTimeout(() => {
-          Router.push("cart");
+          Router.push("/");
         }, 1000);
+        toast.success(data.message);
       })
       .catch((error) => {
         if (!error.response) {
@@ -105,7 +109,7 @@ export default function cart() {
 
   useEffect(async () => {
     const fetchAllInCardLength = async () => {
-      await API.get(`/cart/getAllInCart`)
+      await Axios.get(`/cart/getAllInCart`)
         .then(({ data }) => {
           if (data && data.message[0]) {
             setCart(data.message[0].itemsId);

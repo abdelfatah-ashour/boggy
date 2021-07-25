@@ -4,7 +4,9 @@
   flex-direction: column;
   justify-content: center;
   min-height: 600px;
-  margin: 2rem auto;
+  margin: 5rem auto;
+  box-shadow: 0 0 8px 4px var(--four-color);
+  padding: 0.5rem;
 }
 
 .checkedInputs {

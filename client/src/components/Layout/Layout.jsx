@@ -1,13 +1,15 @@
-import React, { useState, useEffect, useContext } from "react";
-import { AuthContext } from "../../Context_API/AuthUser";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Bar } from "../Bar/Bar";
 import { Navbar } from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import Cookie from "js-cookie";
+import { loginUser, loginAdmin } from "../../redux/slices/auth";
 
 export const Layout = ({ children }) => {
   const [scrolled, setScrolled] = useState(false);
-  const { AuthUser, setAuthUser } = useContext(AuthContext);
+  const dispatch = useDispatch();
+  const { auth } = useSelector((state) => state);
 
   // handle scroll
   const handleScroll = () => {
@@ -35,28 +37,34 @@ export const Layout = ({ children }) => {
 
     if (infoUser) {
       const { userId, email, displayName, role } = infoUser;
-      setAuthUser({
-        isLogin: true,
-        userId: userId,
-        role,
-        isUser: true,
-        isAdmin: false,
-        email: email,
-        displayName: displayName,
-      });
+      dispatch(
+        loginUser({
+          ...auth,
+          isLogin: true,
+          userId: userId,
+          role,
+          isUser: true,
+          isAdmin: false,
+          email: email,
+          displayName: displayName,
+        })
+      );
     }
+
     if (infoAdmin) {
       const { adminId, email, displayName, role } = infoAdmin;
-      setAuthUser({
-        ...AuthUser,
-        userId: adminId,
-        role,
-        email: email,
-        isUser: false,
-        isAdmin: true,
-        displayName: displayName,
-        isLogin: true,
-      });
+      dispatch(
+        loginAdmin({
+          ...auth,
+          isLogin: true,
+          userId: adminId,
+          role,
+          isUser: false,
+          isAdmin: true,
+          email: email,
+          displayName: displayName,
+        })
+      );
     }
   }, []);
 

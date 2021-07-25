@@ -4,7 +4,7 @@
 
 /* Navbar */
 .navbar {
-  background-color: var(--main-color);
+  background-color: var(--first-color);
   padding: 1.5rem 0;
   transition: all 0.5s;
   z-index: 999;
@@ -25,16 +25,19 @@
   color: var(--third-color);
   line-height: 2rem;
 }
+
 .navbar-brand:hover {
   color: var(--third-color);
 }
+
 .nav-link {
   font-family: "Pirata One", cursive;
-  font-size: 1.4rem;
-  color: var(--sec-color);
+  font-size: 24px;
+  color: var(--four-color);
 }
+
 .nav-link:hover {
-  color: var(--third-color);
+  color: var(--five-color);
   transition: all 0.25s;
 }
 .navbar-toggler {

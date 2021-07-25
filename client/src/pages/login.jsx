@@ -1,20 +1,24 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Head from "next/head";
-import { InputFormRegister } from "../utils/InputRegisterCTRL";
-import { getTokenUser, getTokenAdmin } from "../utils/getToken";
-import { toast } from "react-toastify";
-import Style from "../../public/assets/css/login.module.css";
-import Cookie from "js-cookie";
-import API from "../utils/API";
+import { InputFormRegister } from "../utilities/InputRegisterCTRL";
+import { getTokenUser, getTokenAdmin } from "../utilities/getToken";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
+import Cookie from "js-cookie";
+import Axios from "../utilities/Axios";
+import { loginUser, loginAdmin } from "../redux/slices/auth";
+import { useDispatch } from "react-redux";
+import Style from "../../public/assets/css/login.module.css";
 
 export default function login() {
+  const dispatch = useDispatch();
   const Router = useRouter();
   const [UserData, setUserData] = useState({
     email: null,
     password: null,
   });
+
   const [logged, setLogged] = useState(null);
 
   const handleLogin = (e) => {
@@ -23,10 +27,11 @@ export default function login() {
       [e.target.name]: e.target.value,
     });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { email, password } = UserData;
-    await API.post(`/auth/login`, { email, password })
+    await Axios.post(`/auth/login`, { email, password })
       .then((resp) => {
         // response is success
         setUserData({
@@ -46,6 +51,18 @@ export default function login() {
             sameSite: "strict",
             expires: 1 / 48, //  30 min ,
           });
+
+          dispatch(
+            loginAdmin({
+              isLogin: true,
+              role: resp.data.message.role,
+              userId: resp.data.message.adminId,
+              isUser: false,
+              isAdmin: true,
+              email: resp.data.message.email,
+              displayName: resp.data.message.displayName,
+            })
+          );
         }
         // set cookie if user
         if (resp.data.message.role === 0) {
@@ -59,9 +76,19 @@ export default function login() {
             sameSite: "strict",
             expires: 1, // 1 day
           });
+          dispatch(
+            loginUser({
+              isLogin: true,
+              role: resp.data.message.role,
+              userId: resp.data.message.userId,
+              isUser: true,
+              isAdmin: false,
+              email: resp.data.message.email,
+              displayName: resp.data.message.displayName,
+            })
+          );
         }
 
-        setLogged(true);
         toast.success(`login success 💝`);
         setTimeout(() => {
           Router.back();
@@ -96,8 +123,12 @@ export default function login() {
         <title>Login</title>
       </Head>
       <div className={Style.login}>
-        <div className="row">
-          <form className="form col-md-5 col-sm-7 col-xs-9 mx-auto px-4 my-5">
+        <div
+          className="row justify-content-center align-items-center"
+          style={{ minHeight: "500px" }}>
+          <div
+            className={Style.form + " col-md-4 col-10 p-3 my-5"}
+            style={{ borderRadius: ".5rem" }}>
             <InputFormRegister
               name="email"
               type="email"
@@ -119,10 +150,11 @@ export default function login() {
               <button type="submit" className="btn" onClick={handleSubmit}>
                 Login
               </button>
-              <span>
-                {"    "}
+              <br />
+              {"  "}
+              <small>
                 don&apos;t have Account ? <Link href="/register">Register</Link>
-              </span>
+              </small>
             </div>
 
             {logged ? (
@@ -136,7 +168,7 @@ export default function login() {
                 please wait :) redirect automatically ...
               </div>
             ) : null}
-          </form>
+          </div>
         </div>
       </div>
     </>

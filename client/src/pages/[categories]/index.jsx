@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 import { LayoutCard } from "../../components/LayoutCards/LayoutCard";
 import { PaginationComponent } from "../../components/Pagination/Pagination";
 import { Filter } from "../../components/Filtering/Filtering";
-import { validCategoriesUrl } from "../../utils/validURL";
-import API from "../../utils/API";
+import { validCategoriesUrl } from "../../utilities/validURL";
+import Axios from "../../utilities/Axios";
 import Error from "next/error";
 
 function index({ products, total, title, error }) {
@@ -62,7 +62,7 @@ export async function getServerSideProps({ params, query }) {
     }&color=${color ? color : "All"}&date=${date ? date : "newest"}`;
 
     // fetch data
-    return await API.get(`${url}?${defaultUrlQuery}`)
+    return await Axios.get(`${url}?${defaultUrlQuery}`)
       .then(({ data }) => {
         return {
           props: {
@@ -86,7 +86,7 @@ export async function getServerSideProps({ params, query }) {
         };
       });
   } else {
-    return await API.get(url)
+    return await Axios.get(url)
       .then(({ data }) => {
         return {
           props: {

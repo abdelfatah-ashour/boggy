@@ -1,14 +1,14 @@
 import React from "react";
 import Head from "next/head";
-import { validBrandsUrl } from "../../../../utils/validURL";
+import { validBrandsUrl } from "../../../../utilities/validURL";
 import { useRouter } from "next/router";
 import { LayoutCard } from "../../../../components/LayoutCards/LayoutCard";
 import { PaginationComponent } from "../../../../components/Pagination/Pagination";
 import { Filter } from "../../../../components/Filtering/Filtering";
-import API from "../../../../utils/API";
+import Axios from "../../../../utilities/Axios";
 import Error from "next/error";
 
-function index({ products, title, total }) {
+function index({ products, title, total, error }) {
   const { categories, sections, brands } = useRouter().query;
 
   return (
@@ -59,7 +59,7 @@ export async function getServerSideProps({ params, query }) {
     }&color=${color ? color : "All"}&date=${date ? date : "newest"}`;
 
     // fetch data
-    return await API.get(`${url}?${defaultUrlQuery}`)
+    return await Axios.get(`${url}?${defaultUrlQuery}`)
       .then(({ data }) => {
         return {
           props: {
@@ -83,7 +83,7 @@ export async function getServerSideProps({ params, query }) {
         };
       });
   } else {
-    return await API.get(url)
+    return await Axios.get(url)
       .then(({ data }) => {
         return {
           props: {

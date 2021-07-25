@@ -1,15 +1,18 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import Head from "next/head";
-import { PaypalBtn } from "../../../../utils/paymentGetaway";
-import AXIOS from "../../../../utils/API";
-import Style from "../../../../../public/assets/css/productDetails.module.css";
-import { AuthContext } from "../../../../Context_API/AuthUser";
+import { PaypalBtn } from "../../../../utilities/paymentGetaway";
 import { toast } from "react-toastify";
-import { API } from "../../../../utils/KEYS.json";
+import { API } from "../../../../utilities/KEYS.json";
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
+import Axios from "../../../../utilities/Axios";
 import Error from "next/error";
+import Style from "../../../../../public/assets/css/productDetails.module.css";
 export default function details({ products, error }) {
   const [checkout, setCheckout] = useState(null);
-  const { AuthUser } = useContext(AuthContext);
+  const Router = useRouter();
+  const { auth } = useSelector((state) => state);
+
   const {
     Color,
     Size,
@@ -27,7 +30,7 @@ export default function details({ products, error }) {
   } = products;
 
   const handleCheckout = () => {
-    if (AuthUser.isUser) {
+    if (auth.isUser) {
       setCheckout(true);
     } else {
       window.location.href = "/login";
@@ -48,18 +51,24 @@ export default function details({ products, error }) {
 
   // TODO: handleCheckout
   const checkedOut = async () => {
-    await AXIOS.post(`/order/checkout`, {
+    await Axios.post(`/order/checkout`, {
       items: handleOrder(products),
-    });
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   //  TODO: handleDeleteAll
   const handleDeleteAll = async () => {
-    const { data, response } = await AXIOS.delete(`/cart/deleteCart`);
+    const { data, response } = await Axios.delete(`/cart/deleteCart`);
     if (data) {
       toast.success(data.message);
       setTimeout(() => {
-        window.location.href = "cart";
+        Router.back();
       }, 1500);
     }
 
@@ -217,7 +226,7 @@ export default function details({ products, error }) {
 export async function getServerSideProps({ params }) {
   const { categories, sections, brands, details } = params;
 
-  return await AXIOS.get(
+  return await Axios.get(
     `/products/get/${categories}/${sections}/${brands}/${details}`
   )
     .then(({ data }) => {

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import Head from "next/head";
-import Style from "../../public/assets/css/control-panel.module.css";
-import API from "../utils/API";
 import { toast } from "react-toastify";
 import { FaRegCheckCircle } from "react-icons/fa";
-import { getTokenAdmin } from "../utils/getToken";
+import { getTokenAdmin } from "../utilities/getToken";
 import { useRouter } from "next/router";
+import Head from "next/head";
+import Style from "../../public/assets/css/control-panel.module.css";
+import Axios from "../utilities/Axios";
 export default function controlPanel({ orders }) {
   const [newStateOrder, setNewStateOrder] = useState("0");
   const handleEditStateOrder = (e) => {
@@ -13,7 +13,7 @@ export default function controlPanel({ orders }) {
   };
 
   const handleUpdateStateOrder = async (id) => {
-    await API.put(`/order/updateStateOrder`, {
+    await Axios.put(`/order/updateStateOrder`, {
       state: newStateOrder,
       id,
     })
@@ -138,7 +138,7 @@ export async function getServerSideProps({ req }) {
       },
     };
   } else {
-    return await API.get(`/order/getAllOrders`)
+    return await Axios.get(`/order/getAllOrders`)
       .then(({ data }) => {
         return {
           props: { orders: data.message },

@@ -1,13 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import Link from "next/link";
-import { DropDownList } from "../../utils/SubMenuNavbar";
-import { LIST_OF_CLOTHES, LAPTOP_AND_MOBILES } from "../../utils/paths";
+import { DropDownList } from "../../utilities/SubMenuNavbar";
+import { LIST_OF_CLOTHES, LAPTOP_AND_MOBILES } from "../../utilities/paths";
 import { RiMenu5Line } from "react-icons/ri";
-import { AuthContext } from "../../Context_API/AuthUser";
+import { useSelector } from "react-redux";
 
 export const Navbar = ({ style }) => {
-  const { AuthUser } = useContext(AuthContext);
-  const { isUser, isAdmin } = AuthUser;
+  const { auth } = useSelector((state) => state);
   return (
     <nav className="navbar navbar-expand-lg" id="nav" style={style}>
       <div className="container-fluid">
@@ -43,7 +42,7 @@ export const Navbar = ({ style }) => {
               list={LAPTOP_AND_MOBILES}
               category="laptops-and-mobiles"
             />
-            {isUser ? (
+            {auth.isUser ? (
               <li className="nav-item">
                 <Link href="/order">
                   <a className="nav-link" aria-current="page">
@@ -53,7 +52,7 @@ export const Navbar = ({ style }) => {
               </li>
             ) : null}
 
-            {isAdmin ? (
+            {auth.isAdmin ? (
               <li className="nav-item">
                 <Link href="/control-panel">
                   <a className="nav-link" aria-current="page">

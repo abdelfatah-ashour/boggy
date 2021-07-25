@@ -2,10 +2,10 @@ import React, { useEffect, useReducer, useState } from "react";
 import Head from "next/head";
 import Style from "../../../public/assets/css/editCart.module.css";
 import { toast, ToastContainer } from "react-toastify";
-import { getTokenUser } from "../../utils/getToken";
-import AXIOS from "../../utils/API";
+import { getTokenUser } from "../../utilities/getToken";
+import Axios from "../../utilities/Axios";
 import { useRouter } from "next/router";
-import { API } from "../../utils/KEYS.json";
+import { API } from "../../utilities/KEYS.json";
 
 function EditOrder() {
   const [item, setItem] = useState(null);
@@ -27,7 +27,7 @@ function EditOrder() {
   });
   // qty, userId
   const handleConfirmQty = async (id) => {
-    await AXIOS.put(`/cart/getOneItemAndUpdate`, {
+    await Axios.put(`/cart/getOneItemAndUpdate`, {
       qty: state.qty,
       objId: id._id,
     })
@@ -50,7 +50,7 @@ function EditOrder() {
 
   useEffect(() => {
     const fetchOneItemInCart = async () => {
-      await AXIOS.get(`/cart/getAllInCart`)
+      await Axios.get(`/cart/getAllInCart`)
         .then(({ data }) => {
           const item = data.message[0].itemsId.filter((item) => {
             return item.item._id == query.editCart;

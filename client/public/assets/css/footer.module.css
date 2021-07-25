@@ -1,53 +1,72 @@
 .footer {
-  min-height: 250px;
-  background-color: var(--main-color);
+  background-color: var(--first-color);
   display: flex;
   flex-direction: row;
-  color: var(--sec-color);
-}
-.containerOfFooter {
+  color: var(--second-color);
   width: 100%;
 }
-.contentFooter {
-  display: flex;
-  flex-direction: row;
-}
+
 .menu {
   display: flex;
   flex-direction: row;
 }
-.menu ul {
+
+.listMenu {
   list-style: none;
   margin-right: auto;
 }
-.menu ul label {
+
+.listMenu label {
   border-bottom: 2px solid #fff;
   padding-bottom: 0.5rem;
+  color: var(--third-color);
 }
-.menu ul li {
+
+.listMenu li {
   line-height: 1.7;
   padding-top: 0.5rem;
   font-size: 0.8rem;
 }
-.menu ul li a {
-  color: var(--sec-color);
+
+.listMenu li a {
+  color: var(--third-color);
   text-transform: uppercase;
 }
+
+.listMenu li:hover > a {
+  color: var(--third-color);
+  transition: all 0.5s;
+}
+
 .socialMedia {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
-.socialMedia ul {
+
+.listSocialMedia ul {
+  width: 100%;
   list-style: none;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
-.socialMedia ul li {
-  margin-right: 0.5rem;
+
+.listSocialMedia ul li {
   font-size: 1.5rem;
 }
-.socialMedia ul li a {
-  color: var(--sec-color);
+
+.listSocialMedia ul li a {
+  color: var(--third-color);
+}
+
+.listSocialMedia ul li:hover > a {
+  color: var(--third-color);
+  transition: all 0.5s;
+}
+
+.listSocialMedia small {
+  width: 100%;
 }
