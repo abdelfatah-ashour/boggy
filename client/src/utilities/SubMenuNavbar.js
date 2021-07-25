@@ -9,8 +9,7 @@ export const DropDownList = ({ list, title, category }) => {
         id={title}
         role="button"
         data-bs-toggle="dropdown"
-        aria-expanded="false"
-      >
+        aria-expanded="false">
         {category}
       </a>
 

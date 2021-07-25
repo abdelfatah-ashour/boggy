@@ -1,4 +1,4 @@
-import API from '../utils/API';
+import API from '../utilities/API';
 
 // HOC fetching data from database
 export const fetchProducts = async (basedUrl, queries) => {
