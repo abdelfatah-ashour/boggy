@@ -1,4 +1,3 @@
 {
-  "API": "http://localhost:9000",
-  "API2": "https://boggy-e-commerce.herokuapp.com"
+  "API": "https://boggy-e-commerce.herokuapp.com"
 }
