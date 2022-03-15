@@ -8,13 +8,13 @@ const path = require("path");
 
 // environment variables
 require("dotenv").config({
-  path: "./config/.env",
+  path: "./.env",
 });
 
 // connect DB
 const { connectDB } = require("./config/db");
 
-connectDB(process.env.DB_URL)
+connectDB(process.env.DB_URI)
   .then(() => {
     console.log("connected to database");
   })

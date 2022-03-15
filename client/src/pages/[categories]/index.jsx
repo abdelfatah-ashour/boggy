@@ -13,9 +13,7 @@ function index({ products, total, title, error }) {
 
   return (
     <>
-      {error && (
-        <Error title={"server down..try again soon ♥ "} statusCode={500} />
-      )}
+      {error && <Error title={error.toString()} statusCode={500} />}
       {products && (
         <>
           <Head>
@@ -74,16 +72,38 @@ export async function getServerSideProps({ params, query }) {
           },
         };
       })
-      .catch(() => {
-        return {
-          props: {
-            success: false,
-            products: [],
-            total: 0,
-            title: String(categories).toUpperCase(),
-            error: true,
-          },
-        };
+      .catch((error) => {
+        if (error.response) {
+          return {
+            props: {
+              success: false,
+              products: [],
+              total: 0,
+              title: String(categories).toUpperCase(),
+              error: error.response.data.message,
+            },
+          };
+        } else if (error.request) {
+          return {
+            props: {
+              success: false,
+              products: [],
+              total: 0,
+              title: String(categories).toUpperCase(),
+              error: error.request,
+            },
+          };
+        } else {
+          return {
+            props: {
+              success: false,
+              products: [],
+              total: 0,
+              title: String(categories).toUpperCase(),
+              error: error.message,
+            },
+          };
+        }
       });
   } else {
     return await Axios.get(url)
@@ -98,16 +118,38 @@ export async function getServerSideProps({ params, query }) {
           },
         };
       })
-      .catch(() => {
-        return {
-          props: {
-            success: false,
-            products: null,
-            total: null,
-            title: String(categories).toUpperCase(),
-            error: true,
-          },
-        };
+      .catch((error) => {
+        if (error.response) {
+          return {
+            props: {
+              success: false,
+              products: null,
+              total: null,
+              title: String(categories).toUpperCase(),
+              error: error.response.data.message,
+            },
+          };
+        } else if (error.request) {
+          return {
+            props: {
+              success: false,
+              products: null,
+              total: null,
+              title: String(categories).toUpperCase(),
+              error: error.request,
+            },
+          };
+        } else {
+          return {
+            props: {
+              success: false,
+              products: null,
+              total: null,
+              title: String(categories).toUpperCase(),
+              error: error.message,
+            },
+          };
+        }
       });
   }
 }

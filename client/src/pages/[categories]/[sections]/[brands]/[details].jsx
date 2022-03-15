@@ -79,9 +79,7 @@ export default function details({ products, error }) {
 
   return (
     <>
-      {error && (
-        <Error title={"server down..try again soon ♥ "} statusCode={500} />
-      )}
+      {error && <Error title={error.toString()} statusCode={500} />}
 
       {products && (
         <>
@@ -124,7 +122,8 @@ export default function details({ products, error }) {
                                 className={Style.color + " mx-2"}
                                 style={{
                                   backgroundColor: color,
-                                }}></span>
+                                }}
+                              ></span>
                             </React.Fragment>
                           );
                         })}
@@ -235,16 +234,35 @@ export async function getServerSideProps({ params }) {
         props: {
           success: data.success,
           products: data.message.products,
+          error: false,
         },
       };
     })
-    .catch(() => {
-      return {
-        props: {
-          success: false,
-          products: null,
-          error: true,
-        },
-      };
+    .catch((error) => {
+      if (error.response) {
+        return {
+          props: {
+            error: error.response.data.message,
+            success: false,
+            products: null,
+          },
+        };
+      } else if (error.request) {
+        return {
+          props: {
+            error: error.request,
+            success: false,
+            products: null,
+          },
+        };
+      } else {
+        return {
+          props: {
+            success: false,
+            products: null,
+            error: error.message,
+          },
+        };
+      }
     });
 }
