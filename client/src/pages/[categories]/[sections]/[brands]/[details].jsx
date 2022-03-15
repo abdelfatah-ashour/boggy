@@ -13,22 +13,6 @@ export default function details({ products, error }) {
   const Router = useRouter();
   const { auth } = useSelector((state) => state);
 
-  const {
-    Color,
-    Size,
-    SDMemory,
-    SDHard,
-    MemoryRamMobiles,
-    MemoryRamLaptops,
-    Name,
-    Title,
-    Category,
-    Section,
-    Brand,
-    Price,
-    ImageProduct,
-  } = products;
-
   const handleCheckout = () => {
     if (auth.isUser) {
       setCheckout(true);
@@ -43,7 +27,7 @@ export default function details({ products, error }) {
       return {
         Name: item.Name,
         Qty: item.qty,
-        Total: item.qty * Price,
+        Total: item.qty * products?.Price,
       };
     });
     return itemsData;
@@ -84,7 +68,7 @@ export default function details({ products, error }) {
       {products && (
         <>
           <Head>
-            <title>{Name}</title>
+            <title>{products?.Name}</title>
           </Head>
           <div className={Style.productsDetails}>
             <div className="container">
@@ -92,30 +76,35 @@ export default function details({ products, error }) {
                 <div className="col-md-6 col-sm-12 text-center">
                   <div className="d-flex justify-content-center align-items-center">
                     <div className={Style.contentImage}>
-                      <img src={`${API}/${ImageProduct}`} alt={Name} />
+                      <img
+                        src={`${API}/${products?.ImageProduct}`}
+                        alt={products?.Name}
+                      />
                     </div>
                   </div>
-                  <span className={Style.titleImage + " my-3"}>{Name}</span>
+                  <span className={Style.titleImage + " my-3"}>
+                    {products?.Name}
+                  </span>
                 </div>
                 <div className="col-md-6 col-sm-12">
                   <div className={Style.infoProduct}>
                     <div>
-                      name : <b>{Name}</b>
+                      name : <b>{products?.Name}</b>
                     </div>
                     <div>
-                      section :<b> {Title}</b>
+                      section :<b> {products?.Title}</b>
                     </div>
                     <div>
-                      Brand : <b> {Brand}</b>
+                      Brand : <b> {products?.Brand}</b>
                     </div>
                     <div>
-                      Price : $<b>{Price}</b>
+                      Price : $<b>{products?.Price}</b>
                     </div>
                     {
                       // generate Color lists options
                       <div className={Style.colorItem}>
                         <span className="py-2">Color</span> :
-                        {Color.map((color, i) => {
+                        {products?.Color.map((color, i) => {
                           return (
                             <React.Fragment key={i}>
                               <span
@@ -130,10 +119,10 @@ export default function details({ products, error }) {
                       </div>
                     }
 
-                    {Category === "clothes" ? (
+                    {products?.Category === "clothes" ? (
                       <div>
                         Size :
-                        {Size.map((size, i) => {
+                        {products?.Size.map((size, i) => {
                           return (
                             <React.Fragment key={i}>
                               <span className="mx-2">{size}</span>
@@ -142,11 +131,11 @@ export default function details({ products, error }) {
                         })}
                       </div>
                     ) : null}
-                    {Section === "laptops" ? (
+                    {products?.Section === "laptops" ? (
                       <>
                         <div>
                           <span>RAM Memory</span> :<br /> {"  "}
-                          {MemoryRamLaptops.map((ram, i) => {
+                          {products?.MemoryRamLaptops.map((ram, i) => {
                             return (
                               <React.Fragment key={i}>
                                 <span className={Style.options + " mx-2"}>
@@ -158,7 +147,7 @@ export default function details({ products, error }) {
                         </div>
                         <div>
                           <span>Hard SD</span> : <br /> {"  "}
-                          {SDHard.map((sd, i) => {
+                          {products?.SDHard.map((sd, i) => {
                             return (
                               <React.Fragment key={i}>
                                 <span className={Style.options + " mx-2"}>
@@ -170,11 +159,11 @@ export default function details({ products, error }) {
                         </div>
                       </>
                     ) : null}
-                    {Section === "mobiles" ? (
+                    {products?.Section === "mobiles" ? (
                       <>
                         <li>
                           MEMORY Ram : <br /> {"  "}
-                          {MemoryRamMobiles.map((ram, i) => {
+                          {products?.MemoryRamMobiles.map((ram, i) => {
                             return (
                               <React.Fragment key={i}>
                                 <span className={Style.options + " mx-2"}>
@@ -186,7 +175,7 @@ export default function details({ products, error }) {
                         </li>
                         <li>
                           MEMORY internal :<br /> {"  "}
-                          {SDMemory.map((memory, i) => {
+                          {products?.SDMemory.map((memory, i) => {
                             return (
                               <React.Fragment key={i}>
                                 <span className={Style.options + " mx-2"}>
@@ -202,7 +191,7 @@ export default function details({ products, error }) {
                   <div className={Style.checkout}>
                     {checkout ? (
                       <PaypalBtn
-                        amount={Price}
+                        amount={products?.Price}
                         checkout={checkedOut}
                         endCheckout={handleDeleteAll}
                       />
@@ -229,6 +218,7 @@ export async function getServerSideProps({ params }) {
     `/products/get/${categories}/${sections}/${brands}/${details}`
   )
     .then(({ data }) => {
+      console.log("Data ", data);
       return {
         // will be passed to the page component as props
         props: {
@@ -242,7 +232,7 @@ export async function getServerSideProps({ params }) {
       if (error.response) {
         return {
           props: {
-            error: error.response.data.message,
+            error: "Something went wrong!",
             success: false,
             products: null,
           },
